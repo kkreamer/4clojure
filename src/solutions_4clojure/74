@@ -1,0 +1,12 @@
+(fn [input]
+   (apply str
+          (butlast
+           (interleave
+            (filter
+             (fn [val]
+               (let [sqrt (int (Math/sqrt val))]
+                 (= val
+                    (* sqrt sqrt))))
+             (map #(Integer/parseInt %)
+                  (re-seq #"[0-9]+" input)))
+            (repeat ",")))))

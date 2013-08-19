@@ -1,0 +1,3 @@
+(fn [x]
+  (fn [n]
+    (reduce * (repeat x n))))

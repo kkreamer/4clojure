@@ -1,0 +1,18 @@
+(fn [init]
+  (let [numerals {\M 1000
+                  \D 500
+                  \C 100
+                  \L 50
+                  \X 10
+                  \V 5
+                  \I 1}]
+    (first
+     (reduce
+      (fn [[acc last-value] val]
+        (let [this-value (get numerals val)
+              to-add (if (> this-value last-value)
+                       (- this-value (* 2 last-value)) ;; times 2 to "undo" the previous addition                       
+                       this-value)]
+          [(+ acc to-add) this-value]))
+      [0 0]
+      init))))

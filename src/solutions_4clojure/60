@@ -1,0 +1,14 @@
+(letfn [(next-reduction [f val coll]
+          (if (empty? coll)
+            (cons val [])
+            (lazy-seq
+             (cons val
+                   (next-reduction f
+                                   (f val (first coll))
+                                   (rest coll))))))
+        (my-reductions
+          ([f coll]
+             (my-reductions f (first coll) (rest coll)))
+          ([f init coll]
+             (next-reduction f init coll)))]
+  my-reductions)

@@ -1,0 +1,13 @@
+(letfn [(next-layer [paths layer]
+          (for [path paths
+                n (range 2)]
+            (let [[old-value old-index] path
+                  index (+ old-index n)
+                  value (+ old-value (get layer index))]
+              [value index])))]
+  (fn [triangle]
+    (apply min
+           (map first
+                (reduce next-layer
+                        [(conj (first triangle) 0)]
+                        (rest triangle))))))

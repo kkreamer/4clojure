@@ -1,0 +1,7 @@
+(fn [& args]
+   (let [multiplier (first args)]
+     (first
+      (filter
+       (fn [val]
+         (every? #(zero? (rem val %)) args))
+       (range multiplier Double/POSITIVE_INFINITY multiplier)))))

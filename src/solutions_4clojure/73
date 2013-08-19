@@ -1,0 +1,20 @@
+(fn [board]
+   (let [winning-positions [[[0 0] [0 1] [0 2]]
+                            [[1 0] [1 1] [1 2]]
+                            [[2 0] [2 1] [2 2]]
+                            [[0 0] [1 0] [2 0]]
+                            [[0 1] [1 1] [2 1]]
+                            [[0 2] [1 2] [2 2]]
+                            [[0 0] [1 1] [2 2]]
+                            [[0 2] [1 1] [2 0]]]
+         winners (map (fn [position]
+                        (let [states (set 
+                                      (map (fn [[x y]] (get (get board x) y))
+                                           position))]
+                          (if (= #{:x} states) :x
+                              (if (= #{:o} states) :o
+                                  nil))))
+                      winning-positions)]
+     (if (some #{:x} winners) :x
+         (if (some #{:o} winners) :o
+             nil))))

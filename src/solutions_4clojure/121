@@ -1,0 +1,12 @@
+(fn [formula]
+   (fn [variables]
+     (let [ops {'+ +, '- -, '* *, '/ /}]
+       (letfn [(evaluate [expression]
+                 (if (seq? expression)
+                   (let [op (get ops (first expression))
+                         values (map evaluate (rest expression))]
+                     (apply op values))
+                   (if (number? expression)
+                     expression
+                     (get variables expression))))]
+         (evaluate formula)))))

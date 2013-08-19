@@ -1,0 +1,6 @@
+(fn [start end]
+  (reverse
+    (last
+      (take-while #(< (first %) end)
+                  (iterate #(conj % (inc (first %)))
+                           (list start))))))

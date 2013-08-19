@@ -1,0 +1,5 @@
+(fn [a b]
+  (first
+    (filter #(and (zero? (mod a %))
+                  (zero? (mod b %)))
+            (range (min a b) 0 -1))))

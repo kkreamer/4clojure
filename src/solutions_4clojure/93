@@ -1,0 +1,5 @@
+(fn [coll]
+  (filter (fn [val]
+            (and (sequential? val)
+                 (not (some sequential? val))))
+          (tree-seq sequential? seq coll)))

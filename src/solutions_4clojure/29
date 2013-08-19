@@ -1,0 +1,1 @@
+(fn [input] (apply str (filter #(Character/isUpperCase %) input)))

@@ -1,0 +1,21 @@
+(let [cell (fn [x y board] (get (get board x) y))
+       positions [[[0 0] [0 1] [0 2]]
+                  [[1 0] [1 1] [1 2]]
+                  [[2 0] [2 1] [2 2]]
+                  [[0 0] [1 0] [2 0]]
+                  [[0 1] [1 1] [2 1]]
+                  [[0 2] [1 2] [2 2]]
+                  [[0 0] [1 1] [2 2]]
+                  [[0 2] [1 1] [2 0]]]]
+   (fn [player board]     
+     (set
+      (mapcat (fn [position]
+             (filter (fn [[x y]]
+                       (= :e (cell x y board)))
+                     position))
+           (filter (fn [position]
+                     (= {player 2, :e 1}
+                        (frequencies
+                         (map (fn [[x y]] (cell x y board))
+                              position))))
+                   positions)))))

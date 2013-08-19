@@ -1,0 +1,17 @@
+;; This isn't the most efficient, but 
+;; interestingly, my optimized version 
+;; (that keeps a memory of previous 
+;; primes for testing divisibility and 
+;; only searches up to the square root 
+;; for factors) times out in clojail,
+;; even though it runs in tens of 
+;; milliseconds on my laptop.
+(fn [cnt]
+  (take cnt
+        (filter
+         (fn [val]
+           (zero?
+            (count
+             (filter #(zero? (mod val %))
+                     (range 2 val)))))
+         (range 2 Double/POSITIVE_INFINITY))))

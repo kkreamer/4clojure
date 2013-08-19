@@ -1,0 +1,7 @@
+(fn [sets]
+  (every?
+    (fn [[k v]]
+      (= v 1))
+    (frequencies
+        (mapcat seq
+             (seq sets)))))

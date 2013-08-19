@@ -1,0 +1,6 @@
+(letfn [(oscilrate [val & fns]
+          (lazy-seq (cons val
+                          (apply oscilrate ((first fns) val)
+                                 (conj (vec (rest fns))
+                                       (first fns))))))]
+  oscilrate)

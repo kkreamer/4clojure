@@ -1,0 +1,11 @@
+;; uses a set for fast lookup of existing entrises
+(fn [coll]
+   (first 
+    (reduce
+     (fn [[unique-coll unique-set] val]
+       (if (contains? unique-set val)
+         [unique-coll unique-set]
+         [(conj unique-coll val)
+          (conj unique-set val)]))
+     [[] #{}]
+     coll)))

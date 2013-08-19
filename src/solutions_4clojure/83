@@ -1,0 +1,4 @@
+(fn [& booleans]
+  (true?
+    (and (some true? booleans)
+       (some false? booleans))))

@@ -1,0 +1,14 @@
+(letfn [(prime? [n]
+          (zero?
+           (count
+            (filter #(zero? (mod n %))
+                    (range 2 n)))))]
+  (fn [val]
+    (if (not (prime? val))
+      false
+      (let [before (first (filter prime? (range (dec val) 1 -1)))
+            after (first (filter prime? (range (inc val) Double/POSITIVE_INFINITY)))]
+        (if (nil? before)
+          false
+          (= val
+             (/ (+ before after) 2)))))))

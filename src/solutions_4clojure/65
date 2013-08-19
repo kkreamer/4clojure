@@ -1,0 +1,11 @@
+(fn [input]
+   (if (= input (vec input))
+     ;; decide betweeen vector or list
+     (if (= (conj input "A" "B")
+            (conj (apply list input) "A" "B"))
+       :list
+       :vector)
+     ;; decide between set or map
+     (if (= input (apply hash-set input))
+       :set
+       :map)))

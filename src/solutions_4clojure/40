@@ -1,0 +1,4 @@
+(fn [sep coll]
+  (butlast
+    (flatten
+      (map #(list % sep) coll))))

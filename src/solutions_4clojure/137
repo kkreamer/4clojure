@@ -1,0 +1,9 @@
+(fn [n radix]
+  (if (zero? n)
+    [0]
+    (reverse
+     (map
+      #(int (rem % radix))
+      (take-while (complement zero?)
+                  (iterate #(quot % radix)
+                           n))))))

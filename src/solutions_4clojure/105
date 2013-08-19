@@ -1,0 +1,11 @@
+(fn [coll]
+  (first 
+   (reduce
+    (fn [[map keyword] val]
+      (if (keyword? val)
+        [(assoc map val []) val]
+        [(assoc map keyword
+                (conj (get map keyword) val))
+         keyword]))
+    [{} nil]
+    coll)))

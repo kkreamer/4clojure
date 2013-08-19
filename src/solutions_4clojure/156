@@ -1,0 +1,5 @@
+(fn [default coll]
+  (reduce 
+    #(assoc %1 %2 default)
+    {} 
+    coll))

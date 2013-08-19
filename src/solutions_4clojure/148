@@ -1,0 +1,13 @@
+(letfn [(multiple-sum [n x]
+          (let [greatest-multiple (bigint (Math/floor (/ n x)))]
+            (if (zero? greatest-multiple)
+              0
+              (*' x
+                 (/ (*' (inc greatest-multiple)
+                       greatest-multiple)
+                    2N)))))]
+  (fn [n a b]
+    (let [n (dec n)]
+       (-' (+' (multiple-sum n a)
+             (multiple-sum n b))
+          (multiple-sum n (* a b))))))

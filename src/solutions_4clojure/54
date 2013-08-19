@@ -1,0 +1,6 @@
+(fn [n coll]
+   (letfn [(next-n [coll]
+             (lazy-seq
+              (cons (take n coll)
+                    (next-n (drop n coll)))))]
+     (take-while #(= n (count %)) (next-n coll))))

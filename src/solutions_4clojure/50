@@ -1,0 +1,16 @@
+(fn [coll]
+   (set 
+    (vals
+     (reduce
+      (fn [retr val]
+        (let [the-type (class val)]
+          (if (contains? retr the-type)
+            (assoc retr
+              the-type
+              (conj (get retr the-type)
+                    val))
+            (assoc retr
+              the-type
+              [val]))))
+      {}
+      coll))))

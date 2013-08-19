@@ -1,0 +1,6 @@
+(fn [less-than a b]
+  (if (less-than a b)
+     :lt
+     (if (less-than b a)
+          :gt
+          :eq)))

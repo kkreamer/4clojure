@@ -1,0 +1,9 @@
+(fn [x y]
+  (set 
+    (filter 
+      (fn [val]
+        (and (or (contains? x val)
+                 (contains? y val))
+             (not (and (contains? x val)
+                       (contains? y val)))))
+      (clojure.set/union x y))))

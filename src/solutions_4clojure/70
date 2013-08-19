@@ -1,0 +1,3 @@
+(fn [str]
+  (sort String/CASE_INSENSITIVE_ORDER 
+    (re-seq #"[a-zA-Z]+" str)))

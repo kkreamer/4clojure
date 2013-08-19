@@ -1,0 +1,1 @@
+(fn [x y] (set (filter #(and (contains? x %) (contains? y %)) (clojure.set/union x y))))

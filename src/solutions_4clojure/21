@@ -1,0 +1,3 @@
+(fn [coll n] (first (nthnext coll n)))
+
+#(last (take (inc %2) %1))

@@ -1,0 +1,13 @@
+(fn [coll]
+  (reduce
+   (fn [result val]
+     (if (empty? result)
+       [[val val]]
+       (let [interval (last result)
+             seen (last interval)]
+         (if (= val (inc seen))
+           (conj (vec (butlast result))
+                 [(first interval) val])
+           (conj result [val val])))))           
+       []
+   (sort (set coll))))

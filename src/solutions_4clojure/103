@@ -1,0 +1,12 @@
+(letfn [(combinations [n s]
+          (if (zero? n)
+            #{#{}}
+            (set
+             (for [element s
+                   combs (combinations (dec n)
+                                       (disj s element))]
+               (conj combs element)))))]
+  (fn [num-elements orig-set]
+    (if (> num-elements (count orig-set))
+      #{}
+      (combinations num-elements orig-set))))

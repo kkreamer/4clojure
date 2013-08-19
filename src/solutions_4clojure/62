@@ -1,0 +1,5 @@
+(fn [f x]
+  (letfn
+    [(my-iterate [f x]
+        (lazy-seq (cons x (my-iterate f (f x)))))]
+    (my-iterate f x)))

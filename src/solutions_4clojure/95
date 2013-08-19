@@ -1,0 +1,13 @@
+(fn [root-node]
+   (letfn [(node? [node]
+             (if (not (and (sequential? node)
+                           (= 3 (count node))))
+               false
+               (let [child? (fn [val]
+                              (or (nil? val)
+                                  (node? val)))
+                     left (second node)
+                     right (last node)]
+                 (and (child? left)
+                      (child? right)))))]
+     (node? root-node)))

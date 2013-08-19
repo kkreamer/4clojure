@@ -1,0 +1,8 @@
+(fn [tree]
+  (letfn [(mirror [node]
+            (if (sequential? node)
+              [(first node)
+               (mirror (last node))
+               (mirror (second node))]
+              node))]
+    (= tree (mirror tree))))

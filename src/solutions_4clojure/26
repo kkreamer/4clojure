@@ -1,0 +1,6 @@
+(fn [n]
+  (take n
+    (map last (iterate
+      (fn [[a b]]
+        (vector b (+ a b)))
+      [0 1]))))

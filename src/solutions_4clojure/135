@@ -1,0 +1,9 @@
+(fn [& args]
+  (reduce 
+    (fn [so-far token]
+      (if (integer? token)
+         (let [[val op] so-far]
+           (op val token))
+         (vector so-far token)))
+     [0 +]
+     args))

@@ -1,0 +1,9 @@
+(fn [f coll]
+  (reduce 
+    (fn [hmap [k v]] 
+      (let [value (get hmap k)]
+         (if (nil? value)
+            (assoc hmap k (vector v))
+           (assoc hmap k (conj value v)))))
+     {}
+     (map #(vector (f %) %) coll)))

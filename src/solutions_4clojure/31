@@ -1,0 +1,2 @@
+(fn [coll]
+  (partition-by #(list %) coll))

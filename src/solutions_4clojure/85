@@ -1,0 +1,22 @@
+(letfn [(next-sets [s]
+          (map #(disj s %) s))
+        (next-level [[acc sets]]
+          (let [next-acc (apply conj acc sets)
+                next-sets (if (= sets #{#{}})
+                            #{}
+                            (apply conj #{}
+                                   (mapcat next-sets sets)))]
+            [next-acc next-sets]))
+        (done? [[acc sets]]
+          (empty? sets))
+        (answer-from [[acc sets]] acc)
+        (iterate-until [pred f x]
+          (last
+           (take-while (complement pred)
+                            (iterate f x))))
+        (power-set [s]
+          (answer-from
+           (iterate-until done?
+                          next-level
+                          [#{#{}} #{s}])))]
+  power-set)

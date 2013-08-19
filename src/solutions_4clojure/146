@@ -1,0 +1,7 @@
+(fn [map]
+  (into {}
+        (for [x map
+              y (second x)]
+          {[(first x)
+            (first y)]
+           (second y)})))

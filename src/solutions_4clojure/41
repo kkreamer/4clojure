@@ -1,0 +1,7 @@
+(fn [coll n]
+  (keep-indexed 
+    (fn [index item]
+      (if (zero? (mod (inc index) n))
+          nil
+          item))
+     coll))

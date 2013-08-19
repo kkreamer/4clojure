@@ -1,0 +1,5 @@
+(fn [initial-coll n]
+  (reduce
+      (fn [coll val]
+        (concat coll (repeat n val)))
+     '() initial-coll))

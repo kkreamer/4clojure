@@ -1,0 +1,15 @@
+(fn [edges]
+  (first
+   (drop-while sequential?
+               (iterate
+                (fn [[connected edges]]
+                  (if (empty? edges)
+                    true
+                    (let [nodes (filter #(some connected %) edges)]
+                      (if (empty? nodes)
+                        false
+                        (let [edges (filter #(not (some connected %)) edges)
+                              connected (into connected (flatten nodes))]
+                          [connected edges])))))
+                (let [start-node (ffirst edges)]
+                  [#{start-node} edges])))))

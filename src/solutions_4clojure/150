@@ -1,0 +1,40 @@
+(letfn [(digits [n]
+          (let [radix 10]
+            (reverse
+             (map
+              (fn [x] (int (rem x radix)))
+              (take-while (complement zero?)
+                          (iterate (fn [x] (quot x radix))
+                                   n))))))
+        (to-int [coll]
+          (reduce (fn [result val]
+                    (+ (* 10 result) val))
+                  0
+                  coll))
+        (power [base exponent]
+          (apply * (take exponent (repeat (bigint base)))))
+        (next-palindrome [n]
+          (if (< n 9)
+            (inc n)
+            (let [d (digits n)]
+              (if (= #{9} (set d))
+                (+ n 2)
+                (let [c (count d)
+                      left-count (int (/ (inc c) 2))
+                      right-count (- c left-count)                    
+                      left-half (inc (bigint (/ (* n 1.0)
+                                                (power 10 right-count))))
+                      right-half (to-int (reverse (take right-count
+                                                        (digits left-half))))]
+                  (+ (* (power 10 right-count)
+                        left-half)
+                     right-half))))))
+        (palindromes-from [n]
+          (lazy-seq (cons n
+                          (palindromes-from (next-palindrome n)))))]
+  (fn [n]
+    (let [first-palindrome (first
+                            (filter (fn [x] (let [d (digits x)]
+                                       (= d (reverse d))))
+                                    (range n Double/POSITIVE_INFINITY)))]
+      (palindromes-from first-palindrome))))

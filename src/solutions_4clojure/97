@@ -1,0 +1,13 @@
+(fn [row] 
+  (vec 
+    (letfn 
+       [(partial-factorial [from to] 
+           (reduce * 
+             (range from (inc to)))) 
+        (factorial [n] 
+           (partial-factorial 1 n)) 
+        (binomial-coefficient [n r] 
+           (/ (partial-factorial (- n (dec r)) n) 
+              (factorial r)))] 
+      (map (partial binomial-coefficient (dec row)) 
+           (range 0 row)))))

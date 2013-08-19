@@ -1,0 +1,11 @@
+(letfn [(red-pill [f x y]
+          (lazy-seq (cons (f x y)
+                          (red-pill f x (inc y)))))
+        (blue-pill [f x y-start]
+          (lazy-seq (cons (red-pill f x y-start)
+                          (blue-pill f (inc x) y-start))))
+        (matrix
+          ([f] (blue-pill f 0 0))
+          ([f m n] (blue-pill f m n))
+          ([f m n s t] (take s (map #(take t %) (blue-pill f m n)))))]
+  matrix)

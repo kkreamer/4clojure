@@ -1,0 +1,14 @@
+(letfn [(interject [pred separator last-value coll]
+          (if (empty? coll)
+            [last-value]
+            (let [next-value (first coll)]                  
+              (if (pred last-value next-value)
+                (lazy-seq (cons last-value
+                                (cons separator
+                                      (interject pred separator next-value (rest coll)))))
+                (lazy-seq (cons last-value
+                                (interject pred separator next-value (rest coll))))))))]
+  (fn [pred separator coll]
+    (if (empty? coll)
+      coll
+      (interject pred separator (first coll) (rest coll)))))

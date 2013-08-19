@@ -1,0 +1,5 @@
+(fn [coll]
+  (= coll
+    (if (string? coll)
+        (apply str (reverse coll))
+        (reverse coll))))

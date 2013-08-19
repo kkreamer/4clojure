@@ -1,0 +1,7 @@
+(fn [& colls]
+  (let [firsts (map first colls)
+        smallest (apply min firsts)]
+    (if (every? #{smallest} firsts)
+      smallest
+      (let [f #(if (= smallest (first %)) (rest %) %)]
+        (recur (map f colls))))))

@@ -1,0 +1,13 @@
+(fn [initial-coll] 
+  (first 
+    (filter #(not (some sequential? %)) 
+       (iterate 
+         (fn [coll] 
+           (apply concat 
+                  (map 
+                    (fn [entry] 
+                      (if (sequential? entry) 
+                          entry 
+                          (list entry))) 
+                    coll))) 
+          initial-coll))))

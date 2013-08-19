@@ -1,0 +1,9 @@
+(fn [coll]
+   (reduce
+    (fn [m v]
+      (let [count (if (contains? m v)
+                    (inc (get m v))
+                    1)]
+      (assoc m v count)))
+    {}
+    coll))

@@ -1,0 +1,4 @@
+(fn [coll]
+  (map-indexed
+    (fn [a b] [b a])
+    coll))

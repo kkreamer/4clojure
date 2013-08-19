@@ -1,0 +1,17 @@
+(fn [coll]
+        (letfn [(digits [n]
+                  (let [radix 10]
+                    (reverse
+                     (map
+                      #(int (rem % radix))
+                      (take-while (complement zero?)
+                                  (iterate #(quot % radix)
+                                           n))))))
+                (square [val]
+                  (* val val))
+                (sum [coll]
+                  (reduce + coll))
+                (smaller-than-sum-of-squares? [val]
+                  (< val
+                     (sum (map square (digits val)))))]
+          (count (filter smaller-than-sum-of-squares? coll))))

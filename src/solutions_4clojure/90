@@ -1,0 +1,5 @@
+(fn [a b]
+  (set 
+    (for [x a
+          y b]
+        (vector x y))))

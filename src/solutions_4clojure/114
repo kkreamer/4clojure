@@ -1,0 +1,10 @@
+(fn [n p coll]
+  (rest
+   (map second
+        (take-while #(< (first %) n)
+                    (iterate (fn [[i _ s]]
+                               (let [next-val (first s)
+                                     satisfies? (p next-val)
+                                     next-i (if satisfies? (inc i) i)]
+                                 [next-i next-val (rest s)]))
+                             [0 nil coll])))))

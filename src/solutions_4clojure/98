@@ -1,0 +1,11 @@
+(fn [f s]
+  (set
+   (vals
+    (reduce
+     (fn [relation val]
+       (let [equiv (f val)]
+         (if (contains? relation equiv)
+           (assoc relation equiv (conj (get relation equiv) val))
+           (assoc relation equiv (conj #{} val)))))
+     {}
+     s))))

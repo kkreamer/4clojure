@@ -1,0 +1,7 @@
+(fn [initial-coll]
+  (reverse
+    (reduce 
+      (fn [coll val]
+        (conj coll val val))
+      '()
+      initial-coll)))

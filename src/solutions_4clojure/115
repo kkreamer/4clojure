@@ -1,0 +1,24 @@
+(letfn [(digits [n]
+          (let [radix 10]
+            (reverse
+             (map
+              #(int (rem % radix))
+              (take-while (complement zero?)
+                          (iterate #(quot % radix)
+                                   n))))))
+        (done? [next-sum]
+          (= 2 (count next-sum)))
+        (next-sum [[left-sum right-sum the-rest]]
+          (if (empty? the-rest)
+            [left-sum right-sum]
+            (let [next-left (+ left-sum (first the-rest))
+                  next-right (+ right-sum (last the-rest))
+                  next-rest (rest (butlast the-rest))]
+              [next-left next-right next-rest])))
+        (figure-sums [val]
+          (last 
+           (take-while (complement done?)
+                       (iterate next-sum [0 0 (digits val)]))))]
+  (fn [val]
+    (let [[left-sum right-sum _] (figure-sums val)]
+      (= left-sum right-sum))))

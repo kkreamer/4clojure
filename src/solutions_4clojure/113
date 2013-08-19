@@ -1,0 +1,7 @@
+(fn [& args]
+   (reify clojure.lang.Seqable
+     (seq [this] (seq (distinct args)))
+     (toString [this]
+       (apply str
+              (interpose ", "
+                         (sort args))))))

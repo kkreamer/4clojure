@@ -1,0 +1,1 @@
+#(and (contains? %2 %1) (nil? (get %2 %1)))

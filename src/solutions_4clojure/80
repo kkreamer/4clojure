@@ -1,0 +1,19 @@
+(fn [val]
+  (letfn [(sqrt-int [val]
+            (Math/round (Math/sqrt val)))
+(divisor-groups [n]
+  (filter
+   #(integer? (last %))
+   (map
+    #(list % (/ n %))
+    (range 1
+           (inc (sqrt-int n))))))
+  
+(divisors [n]
+  (distinct
+   (sort
+    (flatten
+     (divisor-groups n)))))]
+(= val
+  (reduce +
+    (butlast (divisors val))))))

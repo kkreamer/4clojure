@@ -1,0 +1,3 @@
+(fn [coll n]
+  (map #(take-nth n (drop % coll))
+       (range n)))

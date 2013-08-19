@@ -1,0 +1,16 @@
+(letfn [(transitive-from [[from to] relation]
+           (set 
+            (into (list [from to])
+                  (mapcat (fn [[f t]]
+                            (transitive-from [from t]
+                                             (disj relation [f t])))
+                          (filter
+                           (fn [[f t]]
+                             (= to f))
+                           relation)))))]
+   (fn [relation]
+     (set
+      (mapcat (fn [v]
+                (transitive-from v
+                                 (disj relation v)))
+              relation))))

@@ -1,0 +1,5 @@
+(fn [s]
+  (reduce +
+    (map #(* (if (= \0 %1) 0 1) (int (Math/pow 2 %2)))
+         (reverse s)
+         (range))))

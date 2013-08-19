@@ -1,0 +1,21 @@
+(letfn [(sum [val]
+          (if (sequential? val) (reduce + val) val))
+        (sequs [coll so-far max]
+          (loop [c coll
+                 s so-far
+                 answer []]
+            (if (empty? c)
+              answer
+              (let [f (first c)]
+                (if (sequential? f)
+                  (let [f (sequs f s max)]
+                    (recur (rest c)
+                           (+ s (reduce + (flatten f)))
+                           (conj answer f)))
+                  (if (> (+ s f) max)
+                    answer
+                    (recur (rest c)
+                           (+ s f)
+                           (conj answer f))))))))]
+  (fn [n coll]
+     (sequs coll 0 n)))

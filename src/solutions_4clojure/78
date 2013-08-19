@@ -1,0 +1,9 @@
+(fn [f & args]
+  (letfn [(bounce [next-bounce]
+            (if (fn? next-bounce)              
+              (recur (next-bounce))
+              next-bounce))]              
+  (let [next-bounce (apply f args)]
+    (if (fn? next-bounce)
+      (bounce next-bounce)
+      next-bounce))))

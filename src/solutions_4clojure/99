@@ -1,0 +1,10 @@
+(fn [a b]
+  (reverse
+    (map first
+    (take-while #(not= % [0 0])
+                     (rest 
+                       (iterate 
+                         (fn [[digit the-rest]]
+                           (vector (rem the-rest 10)
+                                   (quot the-rest 10)))
+                         (vector 0 (* a b))))))))

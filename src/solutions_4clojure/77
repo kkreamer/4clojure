@@ -1,0 +1,11 @@
+(fn [coll]
+   (set 
+    (filter #(> (count %) 1)
+            (vals 
+             (apply merge-with
+                    (comp set concat)
+                    (map
+                     (fn [val]
+                       (let [letter-set (sort (apply list val))]
+                         (hash-map letter-set (hash-set val))))
+                     coll))))))

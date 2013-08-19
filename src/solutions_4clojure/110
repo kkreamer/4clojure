@@ -1,0 +1,15 @@
+(letfn [(pronounce [coll]
+          (reduce
+           (fn [acc val]
+             (if (= val (last acc))
+               (let [index (- (count acc) 2)]
+                 (conj (subvec acc 0 index)
+                       (inc (get acc index))
+                       val))
+               (conj acc 1 val)))
+           []
+           coll))
+        (pronunciations [coll]
+          (let [pronunciation (pronounce coll)]
+            (lazy-seq (cons pronunciation (pronunciations pronunciation)))))]
+  pronunciations)

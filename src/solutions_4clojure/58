@@ -1,0 +1,6 @@
+(fn [& fs]
+    (let [fns (reverse fs)]
+      (fn [& args]
+        (reduce #(%2 %1)
+                (apply (first fns) args)
+                (rest fns)))))

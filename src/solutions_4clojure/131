@@ -1,0 +1,31 @@
+(letfn [(next-sets [s]
+          (map #(disj s %) s))
+        (next-level [[acc sets]]
+          (let [next-acc (apply conj acc sets)
+                next-sets (if (= sets #{#{}})
+                            #{}
+                            (apply conj #{}
+                                   (mapcat next-sets sets)))]
+            [next-acc next-sets]))
+        (done? [[acc sets]]
+          (empty? sets))
+        (answer-from [[acc sets]] acc)
+        (iterate-until [pred f x]
+          (last
+           (take-while (complement pred)
+                       (iterate f x))))
+        (subsets [s]
+          (answer-from
+           (iterate-until done?
+                          next-level
+                          [#{} #{s}])))]
+
+  (fn [& sets]
+    (let [subs (map subsets sets)          
+          sums (map (fn [s] (set (map #(reduce + %) s))) subs)          
+          result (some (fn [x]
+                         (every? (fn [c]
+                                   (contains? c x))
+                                 sums))                
+                       (first sums))]
+      (not (nil? result)))))

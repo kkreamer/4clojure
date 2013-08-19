@@ -1,0 +1,29 @@
+(letfn [(sqrt-int [val]
+          (Math/round (Math/sqrt val)))          
+        (divisor-groups [n]
+          (filter
+           #(integer? (last %))
+           (map
+            #(list % (/ n %))
+            (range 1
+                   (inc (sqrt-int n))))))         
+        (divisors [n]
+          (set 
+           (distinct
+            (sort
+             (flatten
+              (divisor-groups n))))))
+        (intersection [a b]
+          (set 
+           (filter #(and (contains? a %)
+                         (contains? b %))
+                   (concat a b))))
+        (coprime? [a b]
+          (= #{1}
+             (intersection (divisors a)
+                           (divisors b))))]
+  (fn [n]
+    (if (= 1 n)
+      1
+      (count (filter (partial coprime? n)
+                     (range n))))))

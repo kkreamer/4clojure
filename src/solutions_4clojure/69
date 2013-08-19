@@ -1,0 +1,12 @@
+(fn [f & maps]
+   (reduce
+    (fn [merged-map next-map]
+      (reduce
+       (fn [the-map [k v]]
+         (if (contains? the-map k)
+           (assoc the-map k (f (get the-map k) v))
+           (assoc the-map k v)))
+       merged-map
+       next-map))
+    (first maps)
+    (rest maps)))

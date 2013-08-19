@@ -1,0 +1,16 @@
+(fn [coll]
+  (first
+   (reduce
+    (fn [[longest current] val]
+      (let [current (if (or (empty? current)
+                            (= val (inc (last current))))
+                      (conj current val)
+                      [val])
+            longest (if (and (> (count current)
+                                (count longest))
+                             (>= (count current) 2))
+                      current
+                      longest)]
+        [longest current]))
+    [[] []]
+    coll)))

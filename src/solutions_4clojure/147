@@ -1,0 +1,9 @@
+(fn [coll]
+   (letfn [(pascal [coll]
+             (lazy-seq
+              (cons (concat coll)
+                    (pascal
+                      (concat [(first coll)]
+                              (map +' coll (rest coll))
+                              [(last coll)])))))]
+     (pascal coll)))

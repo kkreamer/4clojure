@@ -1,0 +1,14 @@
+(fn [rotation coll]
+   (if (empty? coll)
+     coll
+     (let [slice (fn [coll start end]
+                   (map #(nth coll %)
+                        (range start end)))
+           length (count coll)
+           rotate (rem rotation length)
+           split-at (if (neg? rotate)
+                      (+ length rotate)
+                      rotate)
+           left (slice coll 0 split-at)
+           right (slice coll split-at length)]
+       (concat right left))))

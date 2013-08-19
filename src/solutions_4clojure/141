@@ -1,0 +1,16 @@
+(letfn [(suit [card] (get card :suit))
+        (rank [card] (get card :rank))
+        (card-value-fn [trump led]
+          (fn [card]
+            (let [maximum-rank 12]
+              (if (= (suit card) trump)
+                (+ maximum-rank (rank card))                
+                (if (= (suit card) (suit led))
+                  (rank card)
+                  0)))))]
+(fn [trump]
+  (fn [cards]
+    (let [led (first cards)
+          card-value (card-value-fn trump led)]
+      (last
+       (sort-by card-value cards))))))

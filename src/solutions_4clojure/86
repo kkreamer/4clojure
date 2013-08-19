@@ -1,0 +1,18 @@
+(fn [val]
+  (letfn [(digits [n]
+            (let [radix 10]
+              (reverse
+               (map
+                #(int (rem % radix))
+                (take-while (complement zero?)
+                            (iterate #(quot % radix)
+                                     n))))))
+          (happy? [n seen]
+            (cond (= 1 n) true
+                  (contains? seen n) false
+                  :else (recur
+                         (reduce +
+                                 (map #(* % %)
+                                      (digits n)))
+                         (conj seen n))))]
+    (happy? val #{})))

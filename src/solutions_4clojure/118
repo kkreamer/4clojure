@@ -1,0 +1,8 @@
+(fn [f coll] 
+  (letfn [(my-map [coll] 
+            (if (empty? coll) 
+                  '() 
+                (lazy-seq 
+                  (cons (f (first coll)) 
+                        (my-map (rest coll))))))] 
+     (my-map coll)))
